@@ -1,20 +1,29 @@
 
-
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { FaGithub, FaGoogle } from "react-icons/fa6";
 
 const SocailLogin = () => {
-    const { googleLogin } = useContext(AuthContext);
+    const { googleLogin, githubLogin } = useContext(AuthContext);
 
     const handleGoogleLogin = () => {
         googleLogin()
             .then((result) => {
                 const loggedInUser = result.user;
-                console.log("User logged in:", loggedInUser);
+                console.log("Google Login successful:", loggedInUser);
             })
             .catch((error) => {
-                console.error("Login failed:", error.message);
+                console.error("Google Login failed:", error.message);
+            });
+    };
+
+    const handleGithubLogin = () => {
+        githubLogin()
+            .then((result) => {
+                console.log("GitHub Login successful:", result.user);
+            })
+            .catch((error) => {
+                console.error("GitHub Login failed:", error.message);
             });
     };
 
@@ -25,7 +34,7 @@ const SocailLogin = () => {
                 <button className="btn" onClick={handleGoogleLogin}>
                     <FaGoogle /> Login with Google
                 </button>
-                <button className="btn">
+                <button className="btn" onClick={handleGithubLogin}>
                     <FaGithub /> Login with GitHub
                 </button>
             </div>
@@ -34,3 +43,4 @@ const SocailLogin = () => {
 };
 
 export default SocailLogin;
+
